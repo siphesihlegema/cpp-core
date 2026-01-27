@@ -26,7 +26,7 @@ int main() {
     int a = 10;
     long b = 123456L;
     long long c = 123456789LL;
-    unsigned int u = 42;
+    unsigned int u = 42; // only stores non negative integers
 
     // Decimals, floating point
     float f = 3.14f;
