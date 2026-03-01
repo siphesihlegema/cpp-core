@@ -47,3 +47,5 @@ int main() {
 -I	        Add a directory to the header search path.
 -std=c++20	Use a specific C++ standard.
 */
+
+// i dont remember this anymore
