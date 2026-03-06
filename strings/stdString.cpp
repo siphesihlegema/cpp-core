@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
 int main() {
-    std::string name = "Bob";
-    std::cout << name.max_size() << "\n";
+    string name = "Bob";
+    cout << name.max_size() << "\n";
 }
