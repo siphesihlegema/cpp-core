@@ -1,0 +1,30 @@
+/* Ok so basicaly when you instanciate a std::sring you create a copy of the string
+ * into the variable.
+ * this is ok with fundamental types but with string its too slow because it think
+ * its because you can never be sure of the size of a string its memory is allocated
+ * at run time.
+ * */
+
+#include <iostream>
+#include <string>
+#include <string>
+#include <string_view>
+
+void strr(std::string_view s)
+{
+    std::cout << s << "\n";
+}
+
+int main() {
+    std::string str = {"Hello world"}; // this is a C-style string that creates a copy.
+    
+    // Now to solve this we introduce std::string_veiw, wich was introduced in c++17.
+    
+    /*string_veiw solve this problem y only providing read-only access to an existing
+     * string, without making a copy. 
+     * Read only means we can access and use the value, but we can not modify it.
+     */
+
+    strr(str);
+    return 0;
+    }
