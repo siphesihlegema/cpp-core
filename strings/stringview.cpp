@@ -16,7 +16,7 @@ void strr(std::string_view s)
 }
 
 int main() {
-    std::string str = {"Hello world"}; // this is a C-style string that creates a copy.
+    std::string str{"Hello world"}; // this is a C-style string that creates a copy.
     
     // Now to solve this we introduce std::string_veiw, wich was introduced in c++17.
     
@@ -24,7 +24,7 @@ int main() {
      * string, without making a copy. 
      * Read only means we can access and use the value, but we can not modify it.
      */
-
-    strr(str);
+    std::string_view s{"hola"};
+    strr(s);
     return 0;
     }
