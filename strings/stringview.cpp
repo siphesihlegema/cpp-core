@@ -10,9 +10,9 @@
 #include <string>
 #include <string_view>
 
-void strr(std::string_view s)
+void strr(std::string_view enter)
 {
-    std::cout << s << "\n";
+    std::cout << enter << "\n";
 }
 
 int main() {
@@ -26,5 +26,14 @@ int main() {
      */
     std::string_view s{"hola"};
     strr(s);
+    
+    /* When we initialize std::string_view s with C-style string literal "hola",
+     * s provides read-only access to “hola” without making a copy of the string.
+     * When we pass s to strr(), parameter enter is initialized from s.
+     * This allows us to access “hola” through s, again without making a copy of the string.
+     *
+     * std::string_view can be initialized with many different types of strings.
+     * */
+
     return 0;
     }
