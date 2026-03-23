@@ -14,7 +14,7 @@ int main()
         apple,
     };
 
-    Color color { red };
+    Fruit color { apple };
     Fruit fruit { banana };
 
     if (color == fruit) // The compiler will compare color and fruit as integers
