@@ -1,61 +1,63 @@
+// ============================================================
+// CONST POINTERS — Quick Reference
+// ============================================================
+// 'const' position relative to '*' determines WHAT is const:
+//
+//   const int* ptr    — pointer-to-const:   value is read-only, pointer can move
+//   int* const ptr    — const-pointer:      pointer is fixed, value can change
+//   const int* const ptr — const-pointer-to-const: both are fixed
+//
+// Memory aid:
+//   const LEFT  of * → the VALUE being pointed to is const
+//   const RIGHT of * → the POINTER ITSELF is const
+//
+// Summary table:
+//   int* ptr0             — change value? YES  change address? YES
+//   const int* ptr1       — change value? NO   change address? YES
+//   int* const ptr2       — change value? YES  change address? NO
+//   const int* const ptr3 — change value? NO   change address? NO
+//
+// NOTE: A pointer-to-const can point to a NON-const object — it just promises
+// not to modify the value through THAT pointer.
+// ============================================================
+
 int main()
 {
     int x { 5 };
-    int* ptr { &x }; // ptr is a normal (non-const) pointer
+    int* ptr { &x };    // non-const pointer to non-const int — full flexibility
 
     int y { 6 };
-    ptr = &y; // we can point at another value
+    ptr = &y;           // change what ptr points to (ok)
+    *ptr = 7;           // change the value at that address (ok)
 
-    *ptr = 7; // we can change the value at the address being held
-
-    const int z { 5 }; // x is now const
-    //int* ptr { &z };   // compile error: cannot convert from const int* to int*
-
-    // to solve this we use pointer to const
-
+    // Pointer-to-const: cannot modify the value through ptr2, but can reassign ptr2
     const int p {4};
     const int* ptr2 = &p;
+    // *ptr2 = 5;       // compile error: value is read-only through ptr2
+    ptr2 = &y;          // ok: ptr2 itself is not const, can point elsewhere
 
-    // because out const pinter is pointing to a read only variable
-    // we can not change the value it pointing to, but 
-    // we can change our pointer to point to a differnt object
-    
-    *ptr2++; // not allower
+    // ptr2 can also point to a non-const object (just treats it as read-only)
 
-    // const pointers can also point to non const objects
-
-    // we can not change y via ptr2 pointer because its a const pointer
-    ptr2 = &y;
-
-    // Const pointers
-    // we can also make the a pointer itself const. 
-    // A const pointer is a pointer whose address can not be changed after initialization.
-    
-    // to declare a const pointer we place the keyword const after the astrerisk in it declaration.
+    // Const pointer: ptr3 is fixed to &q, but *ptr3 is modifiable
     int q = 9;
     int* const ptr3 = &q;
+    *ptr3 = 20;         // ok: value is modifiable
+    // ptr3 = &x;       // compile error: ptr3 is const, cannot be reassigned
 
-    // const pointer to const value
-    
-    // A const pointer to a const value can not have its address changed, 
-    // nor can the value it is pointing to be changed through the pointer
+    // Const-pointer-to-const: neither the address nor the value can change
     int value = 48;
     const int* const ptr4 {&value};
+    // *ptr4 = 10;      // compile error: value is read-only
+    // ptr4 = &q;       // compile error: pointer is const
 
-{
-    int v{ 5 };
-
-    int* ptr0 { &v };             // points to an "int" but is not const itself.  We can modify the value or the address.
-    const int* ptr1 { &v };       // points to a "const int" but is not const itself.  We can only modify the address.
-    int* const ptr2 { &v };       // points to an "int" and is const itself.   We can only modify the value.
-    const int* const ptr3 { &v }; // points to a "const int" and is const itself.  We can't modify the value nor the address.
-
-    // if the const is on the left side of the *, the const belongs to the value
-    // if the const is on the right side of the *, the const belongs to the pointer
-
-}
-
-
+    // All four combinations side by side:
+    {
+        int v{ 5 };
+        int* ptr0             { &v }; // change value: YES | change address: YES
+        const int* ptr1       { &v }; // change value: NO  | change address: YES
+        int* const ptr2       { &v }; // change value: YES | change address: NO
+        const int* const ptr3 { &v }; // change value: NO  | change address: NO
+    }
 
     return 0;
 }

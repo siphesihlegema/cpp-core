@@ -1,39 +1,49 @@
-/* Ok so basicaly when you instanciate a std::sring you create a copy of the string
- * into the variable.
- * this is ok with fundamental types but with string its too slow because it think
- * its because you can never be sure of the size of a string its memory is allocated
- * at run time.
- * */
+// ============================================================
+// std::string_view — Quick Reference (C++17+)
+// ============================================================
+// std::string_view is a lightweight, READ-ONLY, non-owning view of a string.
+// It avoids the cost of copying a string when you only need to read it.
+//
+// Syntax:
+//   std::string_view sv { "hello" };    // view of a string literal (no copy)
+//   std::string_view sv { myString };   // view of an existing std::string
+//
+// Key properties:
+//   - No heap allocation — just stores a pointer + length
+//   - Cannot modify the string through the view
+//   - Can be initialized from: string literals, std::string, char*, other views
+//
+// GOTCHA — Dangling view:
+//   std::string_view sv { std::string{"temp"} };  // DANGEROUS
+//   The temporary string is destroyed immediately; sv now points to freed memory.
+//   Rule: the original string must outlive the view.
+//
+// Use std::string_view for:
+//   - Function parameters that only need to read a string (faster than const std::string&)
+//   - Viewing slices of existing strings without copying
+//
+// Use std::string for:
+//   - Owned, modifiable strings
+//   - Strings that need to outlive their source
+//
+// See: strings/diff.md for a full comparison
+// ============================================================
 
 #include <iostream>
 #include <string>
-#include <string>
 #include <string_view>
 
-void strr(std::string_view enter)
+void strr(std::string_view enter) // accepts string literals, std::string, or string_view — no copy
 {
     std::cout << enter << "\n";
 }
 
 int main() {
-    std::string str{"Hello world"}; // this is a C-style string that creates a copy.
-    
-    // Now to solve this we introduce std::string_veiw, wich was introduced in c++17.
-    
-    /*string_veiw solve this problem y only providing read-only access to an existing
-     * string, without making a copy. 
-     * Read only means we can access and use the value, but we can not modify it.
-     */
+    std::string str{"Hello world"}; // std::string: heap-allocated owning copy
+
+    // std::string_view: read-only view of the literal "hola" — no allocation
     std::string_view s{"hola"};
-    strr(s);
-    
-    /* When we initialize std::string_view s with C-style string literal "hola",
-     * s provides read-only access to “hola” without making a copy of the string.
-     * When we pass s to strr(), parameter enter is initialized from s.
-     * This allows us to access “hola” through s, again without making a copy of the string.
-     *
-     * std::string_view can be initialized with many different types of strings.
-     * */
+    strr(s); // passes the view — still no copy at any stage
 
     return 0;
-    }
+}

@@ -1,12 +1,31 @@
-/*
-A namespace in C++ is a declarative region that provides a named scope for identifiers (such
-as variables, functions, and classes) to prevent naming conflicts, essentially acting like a
-labeled container or a "surname" for your code. Just as two people can share the first name
-"John" but are distinguished by their last names, two libraries can both have a function named
-init() as long as they are inside different namespaces (e.g., Audio::init() vs.
-Video::init()). This organization is crucial in large projects to ensure that internal variable
-names do not accidentally clash with those in third-party libraries (like the Standard Library's
-std namespace), and members are accessed using the scope *resolution operator (::)* or
-using directives.
-*/
-
+// ============================================================
+// NAMESPACES — Quick Reference
+// ============================================================
+// A namespace is a named scope that groups identifiers (variables, functions,
+// classes) to prevent naming conflicts across large codebases or libraries.
+//
+// Syntax:
+//   namespace Name {
+//       void foo() {}
+//       int x = 0;
+//   }
+//
+// Accessing members:
+//   Name::foo()  — scope resolution operator (::)
+//   Name::x
+//
+// Example use case:
+//   Audio::init()  and  Video::init()  can both exist — different namespaces
+//   std::cout      — cout lives inside the 'std' namespace
+//
+// Access shortcuts (use sparingly):
+//   using namespace Name;        — imports ALL names into current scope (risky: collisions)
+//   using Name::foo;             — imports only 'foo' (safer)
+//
+// Nested namespaces (C++17):
+//   namespace Outer::Inner { void bar() {} }
+//   Outer::Inner::bar();
+//
+// Anonymous namespaces:
+//   namespace { ... }  — gives internal linkage (file-scope only), like 'static'
+// ============================================================

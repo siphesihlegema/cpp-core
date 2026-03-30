@@ -1,32 +1,39 @@
+// ============================================================
+// LINKAGE — Internal vs External Quick Reference
+// ============================================================
+// Linkage controls whether an identifier is visible across translation units (.cpp files).
+//
+//  EXTERNAL linkage — identifier can be used from OTHER files (default for non-const globals)
+//  INTERNAL linkage — identifier is ONLY visible within its own translation unit
+//
+// Rules:
+//   Non-const global (int g_x)          → external by default
+//   static non-const global (static int) → internal (static overrides default)
+//   const global (const int)             → internal by default
+//   constexpr global (constexpr int)     → internal by default
+//
+// Why const/constexpr default to internal:
+//   They are commonly placed in header files that are #included by many .cpp files.
+//   Internal linkage prevents "multiple definition" linker errors across those files.
+//
+// To give const/constexpr external linkage:
+//   extern const int g_y = 1;       // definition with external linkage
+//   extern const int g_y;           // forward declaration in another file
+//   NOTE: you CANNOT forward-declare constexpr — the compiler needs its value at compile time.
+//
+// Rule of thumb:
+//   - Use 'extern' only for global variable forward declarations or extern const definitions.
+//   - Non-const globals don't need 'extern' in their definition (they are extern by default).
+// ============================================================
+
 #include <iostream>
 
-static int g_x{}; // non-constant globals have external linkage by default, but can be given internal linkage via the static keyword
-
-const int g_y{ 1 }; // const globals have internal linkage by default
-constexpr int g_z{ 2 }; // constexpr globals have internal linkage by default
-
-/*
- * Ok i suppose i understand why const and constexpr have iternal linkage in the global namespace,
- * it is mainly because when we #include file with const or constexpr, this happens to multile files maybe
- * so these variable or functions in our header file that we include need to have internal linkage to prevent namingconflicts.
- *
- * And static is just an explicit way to make any variable or function in th global namespace, which by default have external linkage
- * to have internal linkage.
- *
- * there is a way to give const and constexpr functions and variable external linkege, its by using the
- * "etern" keyword. now remeber you always need to foward declare thing to use them in another file. Importently and also sad, we can not
- * foward declare a variable with constexpr, because the compiler needs to know the value of the cunction at compile time, of which
- * we can not do when we foward declare a member.
- *
- * but we can foward decalre a varibale with const, which is also kinda use less because even though the varible is const
- * it is evaluated at runtime.
- *
- * Only use extern for global variable forward declarations or const global variable definitions.
- * Do not use extern for non-const global variable definitions (they are implicitly extern).
- * */
+static int g_x{};    // explicitly internal linkage — not visible outside this file
+const int g_y{ 1 };  // internal linkage by default
+constexpr int g_z{ 2 }; // internal linkage by default
 
 int main()
 {
-    std::cout << g_x << ' ' << g_y << ' ' << g_z << '\n';
+    std::cout << g_x << ' ' << g_y << ' ' << g_z << '\n'; // 0 1 2
     return 0;
 }

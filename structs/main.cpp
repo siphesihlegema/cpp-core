@@ -1,25 +1,31 @@
-// what is the differance between struct and a class?
-
-// i think it has somthing to do with access modifiers.
-// members of a class are by default private where as structs it the opposit.
-
-// whats the point of structs then if they are basically the same as classes? IDK.
-
-// so it seems like it up to me to decide when i should use a struct or class.
-// as a person comming from java, imma stick with classes until i find a reason
-// somewhere to use a struct.
-//But c++ is not like java, in java variable are "public" bu default in a class, so idk
+// ============================================================
+// STRUCTS vs CLASSES — Quick Reference
+// ============================================================
+// In C++, struct and class are almost identical — the ONLY difference is
+// the DEFAULT access modifier:
+//
+//   struct → members are PUBLIC by default
+//   class  → members are PRIVATE by default
+//
+// Convention (not enforced by the language):
+//   struct — used for simple data-only aggregates (Plain Old Data / POD types)
+//             e.g. Point { int x, y; }, Color { float r, g, b; }
+//   class  — used when you want encapsulation (private state + public interface)
+//
+// Structs CAN have member functions, constructors, and inheritance — they are
+// not limited to data. But by convention, if you need heavy encapsulation, use class.
+// ============================================================
 
 #include <iostream>
 #define pr(x) std::cout << x << "\n"
 
 struct player {
-    int x, y;
+    int x, y;    // public by default
     int speed;
 
     void Move(int xa, int ya) {
         x += xa * speed;
-        y += xa * speed;
+        y += xa * speed; // NOTE: ya is unused here (likely a bug — should be y += ya * speed)
     }
 };
 
@@ -28,11 +34,10 @@ int main() {
 
     player.x = 0;
     player.y = 0;
-
     player.speed = 10;
 
-    player.Move(2, 2);
+    player.Move(2, 2); // x becomes 0 + 2*10 = 20
 
-    pr(player.x);
+    pr(player.x); // prints: 20
     return 0;
 }

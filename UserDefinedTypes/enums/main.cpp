@@ -15,6 +15,12 @@ enum Color
     blue, // trailing comma optional but recommended
 }; // the enum definition must end with a semicolon
 
+
+// Unscoped enumerations are named such because they put their enumerator names into
+// the same scope as the enumeration definition itself (as opposed to creating a new scope region like a namespace does).
+
+
+
 int main()
 {
     // Define a few variables of enumerated type Color
