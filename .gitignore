@@ -4,3 +4,9 @@
 
 # Or, if you want to ignore a specific folder from the stats:
 folder_name/* linguist-documentation
+
+# Build artifacts
+*.out
+*.exe
+*.o
+*.dSYM/
