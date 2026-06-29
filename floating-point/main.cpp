@@ -14,17 +14,18 @@
 //   long double — 80-bit or 128-bit depending on platform
 //
 // std::numeric_limits<T>::is_iec559 — compile-time check for IEC 559 compliance
-// std::boolalpha                    — print bool as "true"/"false" instead of 1/0
+// std::boolalpha                    — print bool as "true"/"false" instead of
+// 1/0
 // ============================================================
 
 #include <iostream>
 #include <limits>
 
-int main()
-{
-    std::cout << std::boolalpha; // print booleans as words, not numbers
+int main() {
+  std::cout << std::boolalpha; // print booleans as words, not numbers
 
-    std::cout << "float: "       << std::numeric_limits<float>::is_iec559       << '\n';
-    std::cout << "double: "      << std::numeric_limits<double>::is_iec559      << '\n';
-    std::cout << "long double: " << std::numeric_limits<long double>::is_iec559 << '\n';
+  std::cout << "float: " << std::numeric_limits<float>::is_iec559 << '\n';
+  std::cout << "double: " << std::numeric_limits<double>::is_iec559 << '\n';
+  std::cout << "long double: " << std::numeric_limits<long double>::is_iec559
+            << '\n';
 }
