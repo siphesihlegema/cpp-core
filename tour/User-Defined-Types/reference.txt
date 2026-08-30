@@ -1,0 +1,14 @@
+X(Sometype); // ‘‘ordinar y constr uctor’’: create an object
+X(); // default constructor
+X(const X&); // copy constr uctor
+X(X&&); // move constr uctor
+X& operator=(const X&); // copy assignment: clean up target and copy
+X& operator=(X&&); // move assignment: clean up target and move
+˜X(); // destr uctor: clean up
+
+There are five situations in which an object is copied or moved:
+• As the source of an assignment
+• As an object initializer
+• As a function argument
+• As a function return value
+• As an exception
